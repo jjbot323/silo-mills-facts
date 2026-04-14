@@ -1104,7 +1104,7 @@
         <span class="icon">✉️</span>
         <h3>Share the Facts</h3>
         <p>Send this page to neighbors, family, and anyone who has seen the misleading reporting.</p>
-        <a href="javascript:void(0)" onclick="navigator.share ? navigator.share({title:'Silo Mills Environmental Facts', url:window.location.href}) : (navigator.clipboard.writeText(window.location.href), alert('Link copied!'))" class="btn btn-outline">Share Page</a>
+        <a href="javascript:void(0)" onclick="sharePage(); return false;" class="btn btn-outline">Share Page</a>
       </div>
       <div class="action-card">
         <span class="icon">📝</span>
@@ -1217,5 +1217,27 @@
   </div>
 </footer>
 
+<script>
+  // Share the root page URL — strip any hash/query so #action or similar isn't shared.
+  function sharePage() {
+    const cleanUrl = window.location.origin + window.location.pathname;
+    const shareData = {
+      title: 'Silo Mills | Environmental Facts & Findings',
+      text: 'Independent environmental testing confirms Silo Mills is safe for residential and school use.',
+      url: cleanUrl
+    };
+    if (navigator.share) {
+      navigator.share(shareData).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(cleanUrl).then(() => {
+        alert('Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this link:', cleanUrl);
+      });
+    } else {
+      prompt('Copy this link:', cleanUrl);
+    }
+  }
+</script>
 </body>
 </html>
