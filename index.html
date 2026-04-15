@@ -311,9 +311,20 @@
       box-sizing: border-box;
     }
     /* Inline the dropdown on mobile so it doesn't overflow the viewport */
-    .nav-dropdown > a::after { content: ''; }
+    .nav-dropdown > a::after {
+      content: ' ▾';
+      font-size: 11px;
+      color: var(--gray-500);
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .nav-dropdown.open > a::after { transform: rotate(180deg); }
+    /* Collapsed by default on mobile; expands when .nav-dropdown has .open */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu { display: none; }
+    .nav-dropdown.open .nav-dropdown-menu { display: block; }
     .nav-dropdown-menu {
-      display: block;
+      display: none;
       position: static;
       transform: none;
       box-shadow: none;
@@ -1067,12 +1078,32 @@
   </div>
 </nav>
 <script>
-  // Collapse mobile nav when any link inside is clicked
-  document.querySelectorAll('#navLinks a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      document.getElementById('navLinks').classList.remove('open');
+  (function() {
+    var navLinks = document.getElementById('navLinks');
+    var dropdownToggle = document.querySelector('.nav-dropdown > a');
+    var dropdown = document.querySelector('.nav-dropdown');
+
+    // On mobile, tapping "See the Data" should expand/collapse the sub-menu
+    // instead of navigating. Desktop keeps hover behavior.
+    if (dropdownToggle) {
+      dropdownToggle.addEventListener('click', function(e) {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          e.preventDefault();
+          dropdown.classList.toggle('open');
+        }
+      });
+    }
+
+    // Collapse mobile nav when any link inside is clicked — except the
+    // dropdown toggle itself (which only toggles the sub-menu).
+    document.querySelectorAll('#navLinks a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        if (a === dropdownToggle && window.matchMedia('(max-width: 768px)').matches) return;
+        navLinks.classList.remove('open');
+        if (dropdown) dropdown.classList.remove('open');
+      });
     });
-  });
+  })();
 </script>
 
 <!-- ================== HERO ================== -->
