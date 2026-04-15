@@ -111,6 +111,179 @@
     font-weight: 600;
   }
   .nav-cta:hover { background: #1a6d1a; text-decoration: none; }
+
+  /* Nav dropdown */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a::after {
+    content: ' ▾';
+    font-size: 10px;
+    color: var(--gray-500);
+  }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    padding: 10px 0;
+    min-width: 280px;
+    z-index: 100;
+    margin-top: 6px;
+    list-style: none;
+  }
+  .nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 0; right: 0;
+    height: 8px;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu {
+    display: block;
+  }
+  .nav-dropdown-menu li { padding: 0; }
+  .nav-dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: var(--charcoal);
+    white-space: nowrap;
+  }
+  .nav-dropdown-menu a:hover {
+    background: var(--seafoam);
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .nav-dropdown-menu .dropdown-header {
+    padding: 8px 20px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-500);
+  }
+  .nav-dropdown-menu .dropdown-divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 8px 0;
+  }
+
+  /* Reports CTA button in Resolution section */
+  .reports-cta {
+    text-align: center;
+    margin-top: 48px;
+  }
+  .btn-reports {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(15,42,74,0.25);
+  }
+  .btn-reports:hover {
+    background: var(--teal);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(15,42,74,0.35);
+    text-decoration: none;
+  }
+
+  /* Reports Library section */
+  .reports-section {
+    background: var(--seafoam);
+    padding: 80px 0;
+  }
+  .reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .report-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 28px;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .report-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(15,42,74,0.15);
+    border-color: var(--teal);
+    text-decoration: none;
+  }
+  .report-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: var(--navy);
+    color: white;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .report-card:hover .report-icon {
+    background: var(--teal);
+  }
+  .report-body {
+    flex: 1;
+  }
+  .report-type {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .report-card h3 {
+    font-size: 19px;
+    line-height: 1.3;
+    margin: 0 0 8px;
+    color: var(--navy);
+  }
+  .report-date {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin: 0 0 14px;
+    font-weight: 600;
+  }
+  .report-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--gray-700, #4a5568);
+    margin: 0 0 20px;
+  }
+  .report-link {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.3px;
+  }
+  .report-card:hover .report-link {
+    color: var(--teal);
+  }
+
   .menu-toggle {
     display: none;
     background: none;
@@ -845,7 +1018,19 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#situation">The Situation</a></li>
       <li><a href="#response">The Response</a></li>
-      <li><a href="#resolution">The Data</a></li>
+      <li class="nav-dropdown">
+        <a href="#resolution">See the Data</a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="#resolution">Report Takeaways</a></li>
+          <li><div class="dropdown-divider"></div></li>
+          <li><div class="dropdown-header">Reports &amp; Statements</div></li>
+          <li><a href="reports/silo-mills-hoa-update-march-2026.pdf" target="_blank" rel="noopener">Silo Mills HOA Update — March 30, 2026</a></li>
+          <li><a href="reports/silo-mills-radioactivity-screening-february-2026.pdf" target="_blank" rel="noopener">UES Radioactivity Screening — February 2026</a></li>
+          <li><a href="reports/trrc-inspection-report-february-2026.pdf" target="_blank" rel="noopener">Railroad Commission Inspection Report — February 2026</a></li>
+          <li><div class="dropdown-divider"></div></li>
+          <li><a href="#reports">View All Reports →</a></li>
+        </ul>
+      </li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#action" class="nav-cta">Take Action</a></li>
     </ul>
@@ -1041,6 +1226,53 @@
       </p>
     </div>
 
+    <div class="reports-cta">
+      <a href="#reports" class="btn-reports">View Reports &amp; Statements →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================== REPORTS LIBRARY ================== -->
+<section id="reports" class="reports-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">The Data</span>
+      <h2>Reports &amp; Statements</h2>
+      <p class="section-sub">Independent environmental assessments, regulatory filings, and community updates. All documents are public and available for download.</p>
+    </div>
+    <div class="reports-grid">
+      <a href="reports/silo-mills-hoa-update-march-2026.pdf" target="_blank" rel="noopener" class="report-card">
+        <div class="report-icon">PDF</div>
+        <div class="report-body">
+          <div class="report-type">Community Update</div>
+          <h3>Silo Mills HOA Update</h3>
+          <p class="report-date">March 30, 2026</p>
+          <p class="report-desc">Official update to Silo Mills homeowners on environmental testing, findings, and next steps.</p>
+        </div>
+        <span class="report-link">View PDF →</span>
+      </a>
+      <a href="reports/silo-mills-radioactivity-screening-february-2026.pdf" target="_blank" rel="noopener" class="report-card">
+        <div class="report-icon">PDF</div>
+        <div class="report-body">
+          <div class="report-type">Independent Study</div>
+          <h3>UES Radioactivity Screening</h3>
+          <p class="report-date">February 24, 2026 · UES</p>
+          <p class="report-desc">Comprehensive radiation field screening across the property. 900+ measurements, 100% at or below background levels.</p>
+        </div>
+        <span class="report-link">View PDF →</span>
+      </a>
+      <a href="reports/trrc-inspection-report-february-2026.pdf" target="_blank" rel="noopener" class="report-card">
+        <div class="report-icon">PDF</div>
+        <div class="report-body">
+          <div class="report-type">Regulatory Filing</div>
+          <h3>Railroad Commission Inspection Report</h3>
+          <p class="report-date">February 20, 2026 · TRRC</p>
+          <p class="report-desc">Texas Railroad Commission on-site inspection report confirming site conditions.</p>
+        </div>
+        <span class="report-link">View PDF →</span>
+      </a>
+    </div>
   </div>
 </section>
 
