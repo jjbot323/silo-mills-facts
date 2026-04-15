@@ -304,9 +304,38 @@
       background: white;
       flex-direction: column;
       padding: 20px;
-      gap: 16px;
+      gap: 14px;
       border-bottom: 1px solid var(--gray-200);
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      box-sizing: border-box;
     }
+    /* Inline the dropdown on mobile so it doesn't overflow the viewport */
+    .nav-dropdown > a::after { content: ''; }
+    .nav-dropdown-menu {
+      display: block;
+      position: static;
+      transform: none;
+      box-shadow: none;
+      border: none;
+      border-left: 2px solid var(--gray-200);
+      border-radius: 0;
+      padding: 6px 0 6px 14px;
+      margin: 8px 0 0 8px;
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+      background: transparent;
+    }
+    .nav-dropdown-menu::before { display: none; }
+    .nav-dropdown-menu a {
+      padding: 8px 0;
+      white-space: normal;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .nav-dropdown-menu .dropdown-header { padding: 6px 0 2px; }
+    .nav-dropdown-menu .dropdown-divider { margin: 6px 0; }
   }
 
   /* ============= HERO ============= */
@@ -1037,6 +1066,14 @@
     <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
   </div>
 </nav>
+<script>
+  // Collapse mobile nav when any link inside is clicked
+  document.querySelectorAll('#navLinks a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+</script>
 
 <!-- ================== HERO ================== -->
 <section class="hero">
