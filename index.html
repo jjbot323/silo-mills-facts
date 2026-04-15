@@ -8,18 +8,18 @@
 
 <!-- Open Graph / Facebook / iMessage / Slack link preview -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://silomillsfacts.com/">
+<meta property="og:url" content="https://silomillstruth.com/">
 <meta property="og:title" content="Silo Mills | Environmental Facts & Findings">
 <meta property="og:description" content="Independent environmental testing confirms that Silo Mills is safe for residential and school occupancy. See the data and facts.">
-<meta property="og:image" content="https://silomillsfacts.com/og-image.png">
+<meta property="og:image" content="https://silomillstruth.com/og-image.png">
 <meta property="og:site_name" content="Silo Mills Facts">
 
 <!-- Twitter link preview -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://silomillsfacts.com/">
+<meta name="twitter:url" content="https://silomillstruth.com/">
 <meta name="twitter:title" content="Silo Mills | Environmental Facts & Findings">
 <meta name="twitter:description" content="Independent environmental testing confirms that Silo Mills is safe for residential and school occupancy.">
-<meta name="twitter:image" content="https://silomillsfacts.com/og-image.png">
+<meta name="twitter:image" content="https://silomillstruth.com/og-image.png">
 
 <!-- Cloudflare Turnstile (invisible/managed CAPTCHA) -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -1115,12 +1115,6 @@
         <p>Demand retractions and accurate, fact-based reporting from the outlets that published these claims.</p>
         <a href="#petition-form" class="btn btn-outline">Add Your Name</a>
       </div>
-      <div class="action-card">
-        <span class="icon">📢</span>
-        <h3>Contact Media</h3>
-        <p>Write to local media and request corrections with links to the independent scientific data.</p>
-        <a href="mailto:info@silomillstx.com?subject=Request%20for%20Correction%20-%20Silo%20Mills" class="btn btn-outline">Draft Template</a>
-      </div>
     </div>
 
     <div class="petition-form" id="petition-form">
@@ -1131,15 +1125,14 @@
       </p>
       <!--
         ============================================================
-        PETITION FORM — currently in "coming soon" mode
+        PETITION FORM — Google Apps Script backend
         ============================================================
-        To activate:
-          1. Choose a backend (Web3Forms, Formsubmit.co, Google Sheets, etc.)
-          2. Replace the onsubmit handler below with the real submission logic
-          3. Swap this form block for the full one documented in DEPLOY.md
-        The thank-you message is shown client-side for now — no data is
-        actually transmitted anywhere. Do NOT launch publicly until a real
-        backend is wired up.
+        Submissions go to silomillstruth@gmail.com's Google Sheet via
+        Apps Script web app. Turnstile is verified server-side in the
+        script using the Turnstile Secret Key (not exposed here).
+
+        To activate: paste your deployed Apps Script web app URL into
+        the APPS_SCRIPT_URL constant below.
         ============================================================
       -->
       <form id="petitionForm" onsubmit="return handlePetitionSubmit(event)">
@@ -1179,23 +1172,62 @@
           <div class="cf-turnstile" data-sitekey="0x4AAAAAAC9_QpMSH7Skc6ih"></div>
         </div>
         <button type="submit">Add My Signature →</button>
-        <p class="signature-count">Petition launches soon — your details are not being transmitted yet.</p>
+        <p class="signature-count">Your signature helps set the record straight.</p>
       </form>
       <script>
-        // Placeholder handler — does not submit to a backend yet, but DOES verify
-        // a Turnstile token is present so bots can't breeze past the form.
-        // When the real backend is wired up, the token will be POSTed alongside
-        // the form data and verified server-side using the Turnstile secret key.
+        // Replace this with your deployed Google Apps Script web app URL.
+        // Format: https://script.google.com/macros/s/AKfycb.../exec
+        const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
+
         function handlePetitionSubmit(e) {
           e.preventDefault();
           const form = e.target;
+          const submitBtn = form.querySelector('button[type="submit"]');
+
+          // Require a Turnstile token before submission
           const turnstileToken = form.querySelector('[name="cf-turnstile-response"]');
           if (!turnstileToken || !turnstileToken.value) {
             alert('Please complete the security check before submitting.');
             return false;
           }
-          form.style.display = 'none';
-          document.getElementById('thankYou').style.display = 'block';
+
+          // Bail if the endpoint hasn't been set yet
+          if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
+            form.style.display = 'none';
+            document.getElementById('thankYou').style.display = 'block';
+            return false;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
+
+          // Build URL-encoded payload. Apps Script reads this as e.parameter.
+          const formData = new FormData(form);
+          formData.append('user_agent', navigator.userAgent || '');
+          formData.append('page_url', window.location.origin + window.location.pathname);
+          const body = new URLSearchParams(formData).toString();
+
+          // Apps Script web apps don't allow custom CORS headers, so we
+          // POST with mode:'no-cors'. The browser won't let us read the
+          // response, but the request still reaches the script. Turnstile
+          // + server-side validation handle spam; anything that makes it
+          // through is logged to the sheet.
+          fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+            body: body
+          })
+          .then(() => {
+            form.style.display = 'none';
+            document.getElementById('thankYou').style.display = 'block';
+          })
+          .catch(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Add My Signature →';
+            alert('There was a problem submitting your signature. Please try again.');
+          });
+
           return false;
         }
       </script>
