@@ -21,6 +21,9 @@
 <meta name="twitter:description" content="Independent environmental testing confirms that Silo Mills is safe for residential and school occupancy.">
 <meta name="twitter:image" content="https://silomillsfacts.com/og-image.png">
 
+<!-- Cloudflare Turnstile (invisible/managed CAPTCHA) -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 <style>
   :root {
     --navy: #0B2A45;
@@ -1172,15 +1175,25 @@
           <label>Comment (optional)</label>
           <textarea name="comment" rows="3"></textarea>
         </div>
+        <div class="form-row">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAC9_QpMSH7Skc6ih"></div>
+        </div>
         <button type="submit">Add My Signature →</button>
         <p class="signature-count">Petition launches soon — your details are not being transmitted yet.</p>
       </form>
       <script>
-        // Placeholder handler — does not submit to a backend yet.
-        // Replace this with the real Web3Forms/Formsubmit/Supabase handler once a backend is chosen.
+        // Placeholder handler — does not submit to a backend yet, but DOES verify
+        // a Turnstile token is present so bots can't breeze past the form.
+        // When the real backend is wired up, the token will be POSTed alongside
+        // the form data and verified server-side using the Turnstile secret key.
         function handlePetitionSubmit(e) {
           e.preventDefault();
           const form = e.target;
+          const turnstileToken = form.querySelector('[name="cf-turnstile-response"]');
+          if (!turnstileToken || !turnstileToken.value) {
+            alert('Please complete the security check before submitting.');
+            return false;
+          }
           form.style.display = 'none';
           document.getElementById('thankYou').style.display = 'block';
           return false;
