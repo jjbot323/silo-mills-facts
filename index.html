@@ -319,6 +319,12 @@
       transition: transform 0.2s ease;
     }
     .nav-dropdown.open > a::after { transform: rotate(180deg); }
+    /* Keep the "See the Data" toggle centered even when the submenu expands */
+    .nav-dropdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     /* Collapsed by default on mobile; expands when .nav-dropdown has .open */
     .nav-dropdown:hover .nav-dropdown-menu,
     .nav-dropdown:focus-within .nav-dropdown-menu { display: none; }
