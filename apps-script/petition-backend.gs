@@ -45,14 +45,14 @@ function doPost(e) {
     }
 
     // 2. Validate required fields
-    const firstName = (params.first_name || '').toString().trim();
-    const lastName = (params.last_name || '').toString().trim();
-    const email = (params.email || '').toString().trim();
-    const zip = (params.zip_code || '').toString().trim();
-    const role = (params.role || '').toString().trim();
-    const comment = (params.comment || '').toString().trim();
-    const userAgent = (params.user_agent || '').toString().substring(0, 500);
-    const pageUrl = (params.page_url || '').toString().substring(0, 200);
+    const firstName = _sanitize((params.first_name || '').toString().trim());
+    const lastName = _sanitize((params.last_name || '').toString().trim());
+    const email = _sanitize((params.email || '').toString().trim());
+    const zip = _sanitize((params.zip_code || '').toString().trim());
+    const role = _sanitize((params.role || '').toString().trim());
+    const comment = _sanitize((params.comment || '').toString().trim());
+    const userAgent = _sanitize((params.user_agent || '').toString().substring(0, 500));
+    const pageUrl = _sanitize((params.page_url || '').toString().substring(0, 200));
 
     if (!firstName || !lastName || !email) {
       return _text('FAIL:MISSING_FIELDS');
@@ -136,6 +136,17 @@ function _verifyTurnstile(token) {
     // prefer to accept during outages.
     return false;
   }
+}
+
+/**
+ * Helper: prevent spreadsheet formula injection. If a string starts
+ * with =, +, -, or @, Google Sheets will treat it as a formula when
+ * the sheet is opened. Prefix those values with a single quote so
+ * Sheets stores them as plain text.
+ */
+function _sanitize(value) {
+  if (typeof value !== 'string' || value.length === 0) return value;
+  return /^[=+\-@\t\r]/.test(value) ? "'" + value : value;
 }
 
 /**
