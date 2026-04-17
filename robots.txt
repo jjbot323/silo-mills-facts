@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://silomillstruth.com/sitemap.xml
+Sitemap: https://silomillsfacts.com/sitemap.xml
