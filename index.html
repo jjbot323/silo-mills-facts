@@ -1084,7 +1084,6 @@
         </ul>
       </li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#action" class="nav-cta">Take Action</a></li>
     </ul>
     <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
   </div>
@@ -1131,8 +1130,7 @@
       the data, and what you can do to help.
     </p>
     <div class="hero-ctas">
-      <a href="#action" class="btn btn-primary">Sign the Petition</a>
-      <a href="#resolution" class="btn btn-outline">See Report Takeaways</a>
+      <a href="#resolution" class="btn btn-primary">See Report Takeaways</a>
     </div>
   </div>
 </section>
@@ -1420,163 +1418,29 @@
   </div>
 </section>
 
-<!-- ================== ACTION / PETITION ================== -->
-<section id="action">
+<!-- ================== DATA / RESOURCES ================== -->
+<section id="data">
   <div class="container">
-    <h2>Help Us Set the Record Straight</h2>
-    <p class="lead">
-      Join residents, builders, and community members demanding accurate reporting on
-      overwhelming scientific evidence that Silo Mills is safe for residents and schoolchildren.
-    </p>
-
-    <div class="action-grid">
-      <div class="action-card">
-        <span class="icon">✉️</span>
-        <h3>Share the Facts</h3>
-        <p>Send this page to neighbors, family, and anyone who has seen the misleading reporting.</p>
-        <a href="javascript:void(0)" onclick="sharePage(); return false;" class="btn btn-outline">Share Page</a>
-      </div>
-      <div class="action-card">
-        <span class="icon">📝</span>
-        <h3>Sign the Petition</h3>
-        <p>Demand retractions and accurate, fact-based reporting from the outlets that published these claims.</p>
-        <a href="#petition-form" class="btn btn-outline">Add Your Name</a>
-      </div>
+    <div class="section-header">
+      <h2>Key Facts at a Glance</h2>
+      <p class="lead">The core data points that define the story.</p>
     </div>
-
-    <div class="petition-form" id="petition-form">
-      <h3>Sign the Petition</h3>
-      <p class="petition-sub">
-        We, the undersigned residents, community members and stakeholders, <strong>stand with the facts</strong>.
-      </p>
-      <p class="petition-sub">
-        Independent environmental testing — via borings, soil samples and field measurements — has confirmed
-        what the science has shown all along: the property is safe for residential and school occupancy.
-        Baseless and unsubstantiated media coverage has ignored this and recklessly published untrue and
-        misleading statements about Silo Mills.
-      </p>
-      <p class="petition-sub">
-        We call on the media outlets that published unsubstantiated allegations to issue prompt, prominent
-        corrections, and we ask journalists covering this story going forward to rely on the independent
-        data — not unfounded speculation or unsubstantiated claims. Our families, our neighbors, and our
-        community deserve accurate reporting grounded in facts.
-      </p>
-      <!--
-        ============================================================
-        PETITION FORM — Google Apps Script backend
-        ============================================================
-        Submissions go to silomillstruth@gmail.com's Google Sheet via
-        Apps Script web app. Turnstile is verified server-side in the
-        script using the Turnstile Secret Key (not exposed here).
-
-        To activate: paste your deployed Apps Script web app URL into
-        the APPS_SCRIPT_URL constant below.
-        ============================================================
-      -->
-      <form id="petitionForm" onsubmit="return handlePetitionSubmit(event)">
-        <div class="form-row inline">
-          <div>
-            <label>First Name</label>
-            <input type="text" name="first_name" required>
-          </div>
-          <div>
-            <label>Last Name</label>
-            <input type="text" name="last_name" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <label>Email Address</label>
-          <input type="email" name="email" required>
-        </div>
-        <div class="form-row">
-          <label>Zip Code</label>
-          <input type="text" name="zip_code" required>
-        </div>
-        <div class="form-row">
-          <label>I am a...</label>
-          <select name="role">
-            <option>Silo Mills resident</option>
-            <option>Prospective homebuyer</option>
-            <option>Builder / partner</option>
-            <option>Realtor</option>
-            <option>Pleasant View Elementary faculty / staff member or parent</option>
-            <option>Community member</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label>Comment (optional)</label>
-          <textarea name="comment" rows="3"></textarea>
-        </div>
-        <div class="form-row">
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAAC9_QpMSH7Skc6ih"></div>
-        </div>
-        <button type="submit">Add My Signature →</button>
-        <p class="signature-count">Your signature helps set the record straight.</p>
-      </form>
-      <script>
-        // Replace this with your deployed Google Apps Script web app URL.
-        // Format: https://script.google.com/macros/s/AKfycb.../exec
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWtL3oHZhBRzVf41KSHIfOuWDOV5JB3vM7eCVnh8t3hlSOcSp6qjVP9ALLximIvySk/exec';
-
-        function handlePetitionSubmit(e) {
-          e.preventDefault();
-          const form = e.target;
-          const submitBtn = form.querySelector('button[type="submit"]');
-
-          // Require a Turnstile token before submission
-          const turnstileToken = form.querySelector('[name="cf-turnstile-response"]');
-          if (!turnstileToken || !turnstileToken.value) {
-            alert('Please complete the security check before submitting.');
-            return false;
-          }
-
-          // Bail if the endpoint hasn't been set yet
-          if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
-            form.style.display = 'none';
-            document.getElementById('thankYou').style.display = 'block';
-            return false;
-          }
-
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Submitting...';
-
-          // Build URL-encoded payload. Apps Script reads this as e.parameter.
-          const formData = new FormData(form);
-          formData.append('user_agent', navigator.userAgent || '');
-          formData.append('page_url', window.location.origin + window.location.pathname);
-          const body = new URLSearchParams(formData).toString();
-
-          // Apps Script web apps don't allow custom CORS headers, so we
-          // POST with mode:'no-cors'. The browser won't let us read the
-          // response, but the request still reaches the script. Turnstile
-          // + server-side validation handle spam; anything that makes it
-          // through is logged to the sheet.
-          fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-            body: body
-          })
-          .then(() => {
-            form.style.display = 'none';
-            document.getElementById('thankYou').style.display = 'block';
-          })
-          .catch(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Add My Signature →';
-            alert('There was a problem submitting your signature. Please try again.');
-          });
-
-          return false;
-        }
-      </script>
-      <div id="thankYou" style="display:none; text-align:center; padding:40px 20px;">
-        <h3 style="color:var(--green);">✓ Thanks for your interest!</h3>
-        <p style="margin-top:12px; color:var(--gray-500);">
-          The petition is launching soon. In the meantime, please share this page
-          with others to help set the record straight.
-        </p>
+    <div class="data-grid">
+      <div class="data-card">
+        <h4>Independent Oversight</h4>
+        <p>Third-party Licensed Professional Geoscientists (UES, LLC) with NELAP-accredited laboratory analysis by Eurofins South Central.</p>
+      </div>
+      <div class="data-card">
+        <h4>RRC-Approved Closure</h4>
+        <p>The landfarm operated and closed in full compliance with Texas Railroad Commission Permit LF-0295 (closed June 2017).</p>
+      </div>
+      <div class="data-card">
+        <h4>900+ Soil Samples and Field Measurements</h4>
+        <p>Comprehensive testing across the property at ground surface and subsurface — 100% at or below naturally occurring background levels.</p>
+      </div>
+      <div class="data-card">
+        <h4>Water-Based Drilling Only</h4>
+        <p>The facility only accepted cuttings from water-based natural gas drilling activities — no radioactive materials. Confirmed by sworn former-worker testimony.</p>
       </div>
     </div>
   </div>
@@ -1590,7 +1454,6 @@
       <a href="#response">The Response</a>
       <a href="#resolution">The Data</a>
       <a href="#faq">FAQ</a>
-      <a href="#action">Take Action</a>
       <a href="privacy.html">Privacy</a>
       <a href="https://silomillstx.com" target="_blank" rel="noopener">silomillstx.com</a>
     </div>
