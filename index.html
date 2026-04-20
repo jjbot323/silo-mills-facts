@@ -1057,26 +1057,21 @@
 </style>
 <!-- ============= COMING SOON OVERLAY ============= -->
 <style>
-  .coming-soon-blur { filter: blur(8px); pointer-events: none; user-select: none; }
+  .coming-soon-blur { filter: blur(20px); pointer-events: none; user-select: none; }
   .coming-soon-overlay {
     position: fixed; inset: 0; z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.35);
-    backdrop-filter: blur(2px);
+    gap: 24px;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(4px);
   }
+  .coming-soon-overlay img { height: 100px; width: auto; }
   .coming-soon-overlay h1 {
-    font-size: clamp(2rem, 6vw, 4rem);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
     font-weight: 700;
     color: var(--navy, #0B2A45);
     letter-spacing: 0.04em;
-    margin-bottom: 12px;
-  }
-  .coming-soon-overlay p {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    color: var(--gray-500, #6B7B8D);
-    max-width: 480px;
-    text-align: center;
-    line-height: 1.5;
   }
 </style>
 </head>
@@ -1084,8 +1079,8 @@
 
 <!-- COMING SOON OVERLAY — remove this block + "coming-soon-blur" wrapper to go live -->
 <div class="coming-soon-overlay">
+  <img src="smi_logo.png" alt="Silo Mills">
   <h1>Coming Soon</h1>
-  <p>This site is under construction. Check back shortly.</p>
 </div>
 
 <div class="coming-soon-blur">
