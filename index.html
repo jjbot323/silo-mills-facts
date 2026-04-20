@@ -1055,9 +1055,40 @@
     .section-header h2 { font-size: 24px; }
   }
 </style>
+<!-- ============= COMING SOON OVERLAY ============= -->
+<style>
+  .coming-soon-blur { filter: blur(8px); pointer-events: none; user-select: none; }
+  .coming-soon-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(2px);
+  }
+  .coming-soon-overlay h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--navy, #0B2A45);
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+  }
+  .coming-soon-overlay p {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--gray-500, #6B7B8D);
+    max-width: 480px;
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
 </head>
 <body>
 
+<!-- COMING SOON OVERLAY — remove this block + "coming-soon-blur" wrapper to go live -->
+<div class="coming-soon-overlay">
+  <h1>Coming Soon</h1>
+  <p>This site is under construction. Check back shortly.</p>
+</div>
+
+<div class="coming-soon-blur">
 <!-- ================== NAV ================== -->
 <nav>
   <div class="container">
@@ -1077,6 +1108,7 @@
           <li><div class="dropdown-header">Reports &amp; Statements</div></li>
           <li><a href="reports/trrc-inspection-report-february-2026.pdf" target="_blank" rel="noopener">Railroad Commission Inspection Report — February 20, 2026</a></li>
           <li><a href="reports/silo-mills-radioactivity-screening-february-2026.pdf" target="_blank" rel="noopener">UES Radioactivity Screening — February 24, 2026</a></li>
+          <li><a href="reports/silo-mills-hoa-update-february-2026.pdf" target="_blank" rel="noopener">Silo Mills HOA Update — February 18, 2026</a></li>
           <li><a href="reports/silo-mills-hoa-update-march-2026.pdf" target="_blank" rel="noopener">Silo Mills HOA Update — March 30, 2026</a></li>
           <li><a href="reports/ues-testing-location-map.pdf" target="_blank" rel="noopener">UES Testing Location Map</a></li>
           <li><div class="dropdown-divider"></div></li>
@@ -1324,6 +1356,16 @@
         </div>
         <span class="report-link">View PDF →</span>
       </a>
+      <a href="reports/silo-mills-hoa-update-february-2026.pdf" target="_blank" rel="noopener" class="report-card">
+        <div class="report-icon">PDF</div>
+        <div class="report-body">
+          <div class="report-type">Community Update</div>
+          <h3>Silo Mills HOA Update</h3>
+          <p class="report-date">February 18, 2026</p>
+          <p class="report-desc">Official update to Silo Mills homeowners on environmental testing, findings, and next steps.</p>
+        </div>
+        <span class="report-link">View PDF →</span>
+      </a>
       <a href="reports/silo-mills-hoa-update-march-2026.pdf" target="_blank" rel="noopener" class="report-card">
         <div class="report-icon">PDF</div>
         <div class="report-body">
@@ -1470,5 +1512,6 @@
     }
   }
 </script>
+</div><!-- end coming-soon-blur -->
 </body>
 </html>
