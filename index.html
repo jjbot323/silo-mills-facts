@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -55,7 +59,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.6;
     color: var(--charcoal);
     background: var(--white);
@@ -1056,6 +1060,210 @@
     .btn { width: 100%; text-align: center; }
     .section-header h2 { font-size: 24px; }
   }
+
+  /* === DESIGN PREVIEW: serif headlines === */
+  h1, h2, h3, .section-header h2, .quote-banner blockquote, .hero h1 {
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 { font-weight: 700; letter-spacing: -0.02em; }
+
+  /* === DESIGN PREVIEW: refined palette === */
+  :root {
+    --copper: #9F6B3F;
+    --copper-dark: #7A5230;
+    --copper-light: #F5EFE7;
+    --ink: #1A1A1A;
+    --paper: #FAFAF7;
+  }
+  /* Rewire previously teal-toned tokens to copper */
+  a { color: var(--copper); }
+  a:hover { color: var(--copper-dark); }
+  .section-eyebrow { color: var(--copper); }
+  .nav-cta { background: var(--copper); }
+  .nav-cta:hover { background: var(--copper-dark); }
+  /* Soften seafoam blocks */
+  .reports-section { background: var(--copper-light); }
+  /* Hero gradient -> solid navy with subtle texture */
+  .hero {
+    background: var(--navy);
+    background-image:
+      radial-gradient(ellipse at top right, rgba(159,107,63,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom left, rgba(255,255,255,0.04) 0%, transparent 50%);
+  }
+
+  /* === DESIGN PREVIEW: badge cleanup === */
+  .result-card {
+    border-top: 1px solid var(--gray-200);
+    box-shadow: none;
+    padding: 28px 24px 24px;
+    border-radius: 0;
+  }
+  .result-card h4 {
+    padding-right: 0;
+    color: var(--navy);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .result-card .badge {
+    position: static;
+    display: block;
+    background: transparent;
+    color: var(--green);
+    padding: 0;
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    border-radius: 0;
+  }
+  .result-card .badge::before { content: "Result · "; opacity: 0.55; font-weight: 500; }
+  .results-grid {
+    background: transparent;
+  }
+
+  /* === DESIGN PREVIEW: official-document quote banner === */
+  .quote-banner { background: var(--white); padding: 60px 0 40px; margin-top: 0; }
+  .quote-banner .container {
+    background: transparent;
+    border-left: 4px solid var(--navy);
+    box-shadow: none;
+    border-radius: 0;
+    padding: 8px 0 8px 36px;
+    max-width: 940px;
+  }
+  .quote-banner blockquote {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: clamp(20px, 2.2vw, 24px);
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.45;
+    text-align: left;
+    font-style: normal;
+    margin-bottom: 18px;
+  }
+  .quote-banner blockquote::before, .quote-banner blockquote::after { display: none; }
+  .quote-banner cite {
+    text-align: left;
+    font-size: 13px;
+    color: var(--gray-500);
+    letter-spacing: 0.2px;
+  }
+
+
+  /* === DESIGN PREVIEW: photo hero === */
+  .hero {
+    background:
+      linear-gradient(180deg,
+        rgba(11,42,69,0.55) 0%,
+        rgba(11,42,69,0.40) 35%,
+        rgba(11,42,69,0.55) 75%,
+        rgba(11,42,69,0.85) 100%),
+      url("hero.jpg");
+    background-size: cover;
+    background-position: center 50%;
+    background-repeat: no-repeat;
+  }
+  .hero::before { display: none; }  /* drop the radial gradient overlay */
+  .hero h1 {
+    text-shadow: 0 2px 16px rgba(0,0,0,0.35);
+  }
+  .hero .subtitle {
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    color: rgba(255,255,255,0.95);
+  }
+
+
+  /* === DESIGN PREVIEW: Key Facts factsheet treatment === */
+  #data { background: var(--white); padding: 80px 0 60px; }
+  #data .section-header h2 {
+    text-align: center;
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: clamp(28px, 3vw, 36px);
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  #data .section-header .lead {
+    text-align: center;
+    font-size: 14px;
+    color: var(--gray-500);
+    max-width: 540px;
+    margin: 0 auto 56px;
+  }
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .data-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-left: 1px solid var(--gray-200) !important;
+    border-radius: 0 !important;
+    padding: 28px 24px !important;
+    position: relative;
+  }
+  .data-card:first-child { border-left: none !important; }
+  .data-card h4 {
+    font-family: "Source Serif 4", Georgia, serif !important;
+    color: var(--navy) !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    margin: 0 0 10px 0 !important;
+    line-height: 1.25 !important;
+  }
+  .data-card p {
+    font-size: 13.5px !important;
+    color: var(--charcoal) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+  }
+  @media (max-width: 768px) {
+    .data-grid { grid-template-columns: 1fr 1fr; }
+    .data-card:nth-child(3) { border-left: none !important; border-top: 1px solid var(--gray-200) !important; }
+    .data-card:nth-child(4) { border-top: 1px solid var(--gray-200) !important; }
+  }
+  @media (max-width: 480px) {
+    .data-grid { grid-template-columns: 1fr; }
+    .data-card { border-left: none !important; border-top: 1px solid var(--gray-200) !important; }
+    .data-card:first-child { border-top: none !important; }
+  }
+
+
+  /* === DESIGN PREVIEW: mobile polish === */
+  @media (max-width: 768px) {
+    /* Inquiries section: stack vertically, reduce padding */
+    #press .container > div[style*="grid-template-columns"] {
+      display: block !important;
+    }
+    #press .container > div[style*="grid-template-columns"] > div:first-child {
+      margin-bottom: 20px;
+    }
+    #press {
+      padding: 48px 0 !important;
+    }
+    #press h2 {
+      font-size: 26px !important;
+    }
+    /* Tighten Key Facts on mobile so it stays clean */
+    #data { padding: 56px 0 40px; }
+    .data-card { padding: 22px 18px !important; }
+    .data-card h4 { font-size: 16px !important; }
+    .data-card p { font-size: 13px !important; }
+    /* Hero photo: bias lower on mobile so the path/grass shows */
+    .hero { background-position: center 65% !important; }
+    /* Quote banner: tighten left-padding so text doesn't push too far right */
+    .quote-banner .container { padding-left: 20px !important; }
+  }
+
 </style>
 <!-- ============= COMING SOON OVERLAY ============= -->
 <style>
@@ -1069,7 +1277,7 @@
   }
   .coming-soon-overlay img { height: 100px; width: auto; }
   .coming-soon-overlay h1 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: clamp(2.5rem, 7vw, 5rem);
     font-weight: 700;
     color: var(--navy, #0B2A45);
@@ -1078,7 +1286,6 @@
 </style>
 </head>
 <body>
-
 <!-- ================== NAV ================== -->
 <nav>
   <div class="container">
@@ -1165,7 +1372,7 @@
 <section class="quote-banner">
   <div class="container">
     <blockquote>
-      The subject property is <strong>suitable for residential land-use development and occupancy and the operation of an elementary school</strong> based on no identified adverse impacts to human health or the environment. Based on our findings, no further testing is warranted.
+      “The subject property is <strong>suitable for residential land-use development and occupancy and the operation of an elementary school</strong> based on no identified adverse impacts to human health or the environment. Based on our findings, no further testing is warranted.”
     </blockquote>
     <cite>— UES, LLC (3rd Party Licensed Professional Geoscientists and Environmental Consultants),<br>
     Site Assessment Report, May 2026</cite>
@@ -1524,6 +1731,25 @@
   </div>
 </section>
 
+
+<!-- DESIGN PREVIEW: Press & Inquiries -->
+<section id="press" style="background: var(--copper-light); padding: 60px 0; border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200);">
+  <div class="container" style="max-width: 940px;">
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: start;">
+      <div>
+        <h2 style="font-family: 'Source Serif 4', Georgia, serif; color: var(--navy); font-size: 30px; line-height: 1.15; margin-top: 0; font-weight: 600;">Inquiries</h2>
+      </div>
+      <div style="font-family: 'Source Sans 3', sans-serif; font-size: 15px; line-height: 1.65; color: var(--charcoal);">
+        <p style="margin-bottom: 16px;">Please reach out to the Silo Mills team with any questions.</p>
+        <p style="margin-bottom: 20px;">
+          <strong style="color: var(--navy);">Silo Mills Communications Team</strong><br>
+          <a href="mailto:info@silomillstx.com" style="color: var(--copper); text-decoration: none; font-weight: 600;">info@silomillstx.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================== FOOTER ================== -->
 <footer>
   <div class="container">
@@ -1542,8 +1768,9 @@
       is for informational purposes only and is derived from independent third-party reports and
       regulatory filings. For complete findings and methodology, refer to the full reports.
     </p>
+      <p class="disclaimer" style="margin-top: 18px; color: rgba(159,222,219,0.6); font-size: 12px;">Last updated: May 11, 2026 · This page is reviewed and updated as new information becomes available.</p>
   </div>
-</footer>
+
 
 <script>
   // Share the root page URL — strip any hash/query so #action or similar isn't shared.
@@ -1567,5 +1794,6 @@
     }
   }
 </script>
+
 </body>
 </html>
