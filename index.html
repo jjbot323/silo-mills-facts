@@ -1264,6 +1264,83 @@
     .quote-banner .container { padding-left: 20px !important; }
   }
 
+
+  /* === DESIGN PREVIEW: factsheet treatment for response cards + regulatory status === */
+  /* Strip SaaS chrome from the two Action-section cards */
+  .response-grid {
+    gap: 0 !important;
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+    max-width: 1100px;
+  }
+  .response-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 32px 32px !important;
+  }
+  .response-card + .response-card {
+    border-left: 1px solid var(--gray-200) !important;
+  }
+  .response-card h3 {
+    font-family: "Source Serif 4", Georgia, serif !important;
+    color: var(--navy) !important;
+    font-size: 19px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: -0.005em !important;
+    margin-bottom: 16px !important;
+    line-height: 1.25 !important;
+  }
+  .response-card ul { padding-left: 0 !important; list-style: none !important; }
+  .response-card li {
+    border-bottom: 1px solid var(--gray-200);
+    padding: 10px 0 10px 0 !important;
+    font-size: 14px;
+    color: var(--charcoal);
+    line-height: 1.55;
+  }
+  .response-card li::before { display: none !important; content: '' !important; }
+  .response-card li:last-child { border-bottom: none; }
+
+  /* Regulatory Status: strip the callout look, use top+bottom rules */
+  .regulatory-box {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-top: 1px solid var(--gray-200) !important;
+    border-bottom: 1px solid var(--gray-200) !important;
+    border-radius: 0 !important;
+    padding: 28px 0 !important;
+    max-width: 1100px;
+    margin: 56px auto 0;
+  }
+  .regulatory-box h4 {
+    font-family: "Source Serif 4", Georgia, serif !important;
+    color: var(--navy) !important;
+    font-size: 19px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: -0.005em !important;
+    margin-bottom: 10px !important;
+    line-height: 1.25 !important;
+  }
+  .regulatory-box p {
+    color: var(--charcoal) !important;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+
+  @media (max-width: 768px) {
+    .response-card + .response-card {
+      border-left: none !important;
+      border-top: 1px solid var(--gray-200) !important;
+    }
+    .response-card { padding: 24px 0 !important; }
+    .regulatory-box { padding: 24px 0 !important; }
+  }
+
 </style>
 <!-- ============= COMING SOON OVERLAY ============= -->
 <style>
