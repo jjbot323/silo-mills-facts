@@ -1853,7 +1853,7 @@
         </div>
         <span class="report-link">View PDF →</span>
       </a>
-      <a href="#" onclick="openReportRequestModal(); return false;" class="report-card request-card" style="display: none;">
+      <a href="#" onclick="openReportRequestModal(); return false;" class="report-card request-card">
         <div class="report-icon">PDF</div>
         <div class="report-body">
           <div class="report-type">Independent Study · Request Access</div>
@@ -2055,7 +2055,7 @@
 
       <!-- Cloudflare Turnstile invisible bot protection -->
       <div class="turnstile-wrap">
-        <div class="cf-turnstile" data-sitekey="TURNSTILE_SITE_KEY_PLACEHOLDER" data-callback="rrmTurnstileCallback" data-error-callback="rrmTurnstileError"></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADTMqOetPrOJAVs7" data-callback="rrmTurnstileCallback" data-error-callback="rrmTurnstileError"></div>
       </div>
 
       <button type="submit" id="rrm-submit">Submit Request</button>
@@ -2081,7 +2081,7 @@
 
 <script>
   // Apps Script web app URL — handles the form submission server-side
-  const RRM_APPS_SCRIPT_URL = 'APPS_SCRIPT_URL_PLACEHOLDER';
+  const RRM_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmTF-PHzTpCCbEX14SwMBqEGH0MeLYLeiyiLhcOGfAXTmmV9-uT3wU-TRl8nPTM_xVbQ/exec';
 
   function openReportRequestModal() {
     const modal = document.getElementById('report-request-modal');
