@@ -1345,6 +1345,144 @@
     .regulatory-box { padding: 24px 0 !important; }
   }
 
+  /* ============= REQUEST ACCESS MODAL ============= */
+  .request-card { cursor: pointer; }
+  .request-card .report-link { color: var(--copper); }
+  .request-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(11, 42, 69, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .request-modal-overlay.is-open { display: flex; }
+  .request-modal-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    width: 100%;
+    max-width: 520px;
+    padding: 36px 40px 32px;
+    position: relative;
+    font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .request-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--gray-500);
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .request-modal-close:hover { background: var(--gray-100); color: var(--charcoal); }
+  .request-modal-card h2 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 8px;
+    line-height: 1.25;
+  }
+  .request-modal-card .intro {
+    font-size: 14px;
+    color: var(--charcoal);
+    line-height: 1.55;
+    margin: 0 0 20px;
+  }
+  .request-modal-card label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 14px 0 6px;
+  }
+  .request-modal-card input[type="text"],
+  .request-modal-card input[type="email"] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--charcoal);
+    background: white;
+    box-sizing: border-box;
+  }
+  .request-modal-card input:focus {
+    outline: none;
+    border-color: var(--copper);
+    box-shadow: 0 0 0 3px rgba(159, 107, 63, 0.15);
+  }
+  .request-modal-card .turnstile-wrap { margin: 18px 0 6px; min-height: 65px; }
+  .request-modal-card button[type="submit"] {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 14px;
+    letter-spacing: 0.3px;
+    transition: background 0.15s ease;
+  }
+  .request-modal-card button[type="submit"]:hover:not(:disabled) { background: var(--copper-dark); }
+  .request-modal-card button[type="submit"]:disabled {
+    background: var(--gray-500);
+    cursor: not-allowed;
+  }
+  .request-modal-card .form-error {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #FEF2F2;
+    border-left: 3px solid #DC2626;
+    color: #991B1B;
+    font-size: 13px;
+    border-radius: 4px;
+    display: none;
+  }
+  .request-modal-card .form-error.is-visible { display: block; }
+  .request-modal-card .success-state {
+    display: none;
+    text-align: center;
+    padding: 12px 0 8px;
+  }
+  .request-modal-card.is-success .request-form { display: none; }
+  .request-modal-card.is-success .success-state { display: block; }
+  .request-modal-card .success-state h2 { color: var(--navy); }
+  .request-modal-card .success-state .checkmark {
+    font-size: 48px;
+    color: #228B22;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .request-modal-card .privacy-note {
+    margin-top: 14px;
+    font-size: 11px;
+    color: var(--gray-500);
+    line-height: 1.5;
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    .request-modal-card { padding: 28px 22px 24px; }
+    .request-modal-card h2 { font-size: 19px; }
+  }
+
 </style>
 <!-- ============= COMING SOON OVERLAY ============= -->
 <style>
@@ -1399,7 +1537,7 @@
           <li><a href="#reports">View All Reports →</a></li>
         </ul>
       </li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#faq">Q&amp;A</a></li>
     </ul>
     <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
   </div>
@@ -1715,6 +1853,15 @@
         </div>
         <span class="report-link">View PDF →</span>
       </a>
+      <a href="#" onclick="openReportRequestModal(); return false;" class="report-card request-card">
+        <div class="report-icon">PDF</div>
+        <div class="report-body">
+          <div class="report-type">Independent Study · Request Access</div>
+          <h3>UES Site Assessment Report (2026)</h3>
+          <p class="report-desc">Full 745-page UES Site Assessment Report. Click to request access; we'll follow up by email with a link to the full report.</p>
+        </div>
+        <span class="report-link">Request Access →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -1723,7 +1870,7 @@
 <section id="faq">
   <div class="container">
     <div class="section-header">
-      <h2>Frequently Asked Questions</h2>
+      <h2>Additional Q&amp;A</h2>
     </div>
     <div class="faq-list">
       <details class="faq-item" open>
@@ -1850,7 +1997,7 @@
       <a href="#situation">Background</a>
       <a href="#response">Action</a>
       <a href="#resolution">The Data</a>
-      <a href="#faq">FAQ</a>
+      <a href="#faq">Q&amp;A</a>
       <a href="privacy.html">Privacy</a>
       <a href="https://silomillstx.com" target="_blank" rel="noopener">silomillstx.com</a>
     </div>
@@ -1886,6 +2033,156 @@
       prompt('Copy this link:', cleanUrl);
     }
   }
+</script>
+
+<!-- ============= REQUEST FULL UES REPORT MODAL ============= -->
+<div id="report-request-modal" class="request-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="rrm-title" onclick="if(event.target===this) closeReportRequestModal()">
+  <div class="request-modal-card" id="rrm-card">
+    <button type="button" class="request-modal-close" aria-label="Close" onclick="closeReportRequestModal()">×</button>
+
+    <form id="rrm-form" class="request-form" autocomplete="on" novalidate>
+      <h2 id="rrm-title">Request Full UES Site Assessment Report</h2>
+      <p class="intro">
+        The full report is 32&nbsp;MB and 745&nbsp;pages. Please provide your name and email and we&rsquo;ll
+        follow up shortly with a link to access the report.
+      </p>
+
+      <label for="rrm-name">Full Name</label>
+      <input id="rrm-name" type="text" name="name" required maxlength="100" autocomplete="name">
+
+      <label for="rrm-email">Email Address</label>
+      <input id="rrm-email" type="email" name="email" required maxlength="200" autocomplete="email">
+
+      <!-- Cloudflare Turnstile invisible bot protection -->
+      <div class="turnstile-wrap">
+        <div class="cf-turnstile" data-sitekey="TURNSTILE_SITE_KEY_PLACEHOLDER" data-callback="rrmTurnstileCallback" data-error-callback="rrmTurnstileError"></div>
+      </div>
+
+      <button type="submit" id="rrm-submit">Submit Request</button>
+
+      <div class="form-error" id="rrm-error"></div>
+
+      <p class="privacy-note">
+        Your name and email are used only to follow up with this request. We do not share this information.
+      </p>
+    </form>
+
+    <div class="success-state">
+      <div class="checkmark">✓</div>
+      <h2>Thank You</h2>
+      <p class="intro" style="margin-top: 14px;">
+        We&rsquo;ve received your request and will follow up by email shortly with a link to access the
+        full UES Site Assessment Report.
+      </p>
+      <button type="button" onclick="closeReportRequestModal()" style="width: auto; padding: 10px 24px; background: var(--navy); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 8px;">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Apps Script web app URL — handles the form submission server-side
+  const RRM_APPS_SCRIPT_URL = 'APPS_SCRIPT_URL_PLACEHOLDER';
+
+  function openReportRequestModal() {
+    const modal = document.getElementById('report-request-modal');
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      const name = document.getElementById('rrm-name');
+      if (name) name.focus();
+    }, 100);
+  }
+
+  function closeReportRequestModal() {
+    const modal = document.getElementById('report-request-modal');
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    // Reset state if they previously submitted successfully
+    setTimeout(function() {
+      document.getElementById('rrm-card').classList.remove('is-success');
+      const err = document.getElementById('rrm-error');
+      err.classList.remove('is-visible');
+      err.textContent = '';
+      const form = document.getElementById('rrm-form');
+      if (form) form.reset();
+      if (window.turnstile && window.__rrmWidgetId !== undefined) {
+        try { window.turnstile.reset(window.__rrmWidgetId); } catch (e) {}
+      }
+    }, 300);
+  }
+
+  // ESC key closes the modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('report-request-modal');
+      if (modal && modal.classList.contains('is-open')) closeReportRequestModal();
+    }
+  });
+
+  function rrmTurnstileCallback(token) { /* token captured by Turnstile widget */ }
+  function rrmTurnstileError() {
+    showRrmError('Bot protection couldn’t verify. Please refresh and try again.');
+  }
+
+  function showRrmError(msg) {
+    const err = document.getElementById('rrm-error');
+    err.textContent = msg;
+    err.classList.add('is-visible');
+  }
+
+  document.getElementById('rrm-form').addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    const err = document.getElementById('rrm-error');
+    err.classList.remove('is-visible');
+    err.textContent = '';
+
+    const name = document.getElementById('rrm-name').value.trim();
+    const email = document.getElementById('rrm-email').value.trim();
+
+    if (!name) return showRrmError('Please enter your name.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showRrmError('Please enter a valid email address.');
+
+    // Get Turnstile token
+    let token = '';
+    if (window.turnstile) {
+      try {
+        const widget = document.querySelector('#rrm-form .cf-turnstile');
+        token = window.turnstile.getResponse(widget) || '';
+      } catch (e) {}
+    }
+    if (!token) {
+      return showRrmError('Please complete the bot-protection check (if visible) and try again.');
+    }
+
+    const submitBtn = document.getElementById('rrm-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    const formData = new URLSearchParams();
+    formData.append('action', 'report_request');
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('cf-turnstile-response', token);
+    formData.append('user_agent', navigator.userAgent || '');
+    formData.append('page_url', window.location.href);
+
+    // Apps Script web apps don't expose CORS headers, so we use no-cors.
+    // Response is opaque — we assume success after the POST resolves
+    // since the backend's validation/email logic runs regardless.
+    fetch(RRM_APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData,
+    }).then(function() {
+      document.getElementById('rrm-card').classList.add('is-success');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Request';
+    }).catch(function(e) {
+      showRrmError('Something went wrong. Please try again, or email info@silomillstx.com directly.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Request';
+    });
+  });
 </script>
 
 </body>
