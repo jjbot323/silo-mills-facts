@@ -71,6 +71,7 @@ function _handleReportRequest(params) {
   const name = _sanitize((params.name || '').toString().trim());
   const email = _sanitize((params.email || '').toString().trim());
   const phone = _sanitize((params.phone || '').toString().trim().substring(0, 40));
+  const address = _sanitize((params.address || '').toString().trim().substring(0, 200));
   const role = _sanitize((params.role || '').toString().trim().substring(0, 80));
   const userAgent = _sanitize((params.user_agent || '').toString().substring(0, 500));
   const pageUrl = _sanitize((params.page_url || '').toString().substring(0, 200));
@@ -86,11 +87,11 @@ function _handleReportRequest(params) {
   let sheet = ss.getSheetByName(REQUESTS_SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(REQUESTS_SHEET_NAME);
-    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Phone', 'Role', 'User Agent', 'Page URL', 'Status']);
-    sheet.getRange('A1:H1').setFontWeight('bold');
+    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Phone', 'Address', 'Role', 'User Agent', 'Page URL', 'Status']);
+    sheet.getRange('A1:I1').setFontWeight('bold');
     sheet.setFrozenRows(1);
   }
-  sheet.appendRow([new Date(), name, email, phone, role, userAgent, pageUrl, 'PENDING']);
+  sheet.appendRow([new Date(), name, email, phone, address, role, userAgent, pageUrl, 'PENDING']);
 
   // 5. Send notification email to the team
   const timestamp = Utilities.formatDate(new Date(), 'America/Chicago', 'MMMM d, yyyy \'at\' h:mm a z');
@@ -101,6 +102,7 @@ function _handleReportRequest(params) {
     'Name:       ' + name,
     'Email:      ' + email,
     'Phone:      ' + (phone || '(not provided)'),
+    'Address:    ' + (address || '(not provided)'),
     'I am a:     ' + (role || '(not provided)'),
     'Submitted:  ' + timestamp,
     '',
@@ -119,6 +121,7 @@ function _handleReportRequest(params) {
     '<tr><td style="padding: 4px 12px 4px 0; font-weight: 600; color: #0B2A45;">Name:</td><td>' + _escapeHtml(name) + '</td></tr>' +
     '<tr><td style="padding: 4px 12px 4px 0; font-weight: 600; color: #0B2A45;">Email:</td><td><a href="mailto:' + _escapeHtml(email) + '">' + _escapeHtml(email) + '</a></td></tr>' +
     '<tr><td style="padding: 4px 12px 4px 0; font-weight: 600; color: #0B2A45;">Phone:</td><td>' + _escapeHtml(phone || '(not provided)') + '</td></tr>' +
+    '<tr><td style="padding: 4px 12px 4px 0; font-weight: 600; color: #0B2A45;">Address:</td><td>' + _escapeHtml(address || '(not provided)') + '</td></tr>' +
     '<tr><td style="padding: 4px 12px 4px 0; font-weight: 600; color: #0B2A45;">I am a:</td><td>' + _escapeHtml(role || '(not provided)') + '</td></tr>' +
     '<tr><td style="padding: 4px 12px 4px 0; font-weight: 600; color: #0B2A45;">Submitted:</td><td>' + _escapeHtml(timestamp) + '</td></tr>' +
     '</table>' +

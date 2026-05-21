@@ -2056,8 +2056,11 @@
       <label for="rrm-email">Email Address</label>
       <input id="rrm-email" type="email" name="email" required maxlength="200" autocomplete="email">
 
-      <label for="rrm-phone">Phone Number <span style="color:#9F6B3F;">*</span></label>
-      <input id="rrm-phone" type="tel" name="phone" maxlength="40" autocomplete="tel">
+      <label for="rrm-phone">Phone Number</label>
+      <input id="rrm-phone" type="tel" name="phone" required maxlength="40" autocomplete="tel">
+
+      <label for="rrm-address">Address</label>
+      <input id="rrm-address" type="text" name="address" required maxlength="200" autocomplete="street-address">
 
       <label for="rrm-role">I am a&hellip;</label>
       <select id="rrm-role" name="role" required onchange="rrmToggleOtherDetail()">
@@ -2079,8 +2082,6 @@
       <div class="turnstile-wrap">
         <div class="cf-turnstile" data-sitekey="0x4AAAAAADTMqOetPrOJAVs7" data-callback="rrmTurnstileCallback" data-error-callback="rrmTurnstileError"></div>
       </div>
-
-      <p style="margin:0 0 10px; font-size:0.8em; color:#A9B4BF;"><span style="color:#9F6B3F;">*</span> optional</p>
 
       <button type="submit" id="rrm-submit">Submit Request</button>
 
@@ -2179,11 +2180,14 @@
     const name = document.getElementById('rrm-name').value.trim();
     const email = document.getElementById('rrm-email').value.trim();
     const phone = document.getElementById('rrm-phone').value.trim();
+    const address = document.getElementById('rrm-address').value.trim();
     let role = document.getElementById('rrm-role').value;
     const otherDetail = document.getElementById('rrm-other-detail').value.trim();
 
     if (!name) return showRrmError('Please enter your name.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showRrmError('Please enter a valid email address.');
+    if (!phone) return showRrmError('Please enter your phone number.');
+    if (!address) return showRrmError('Please enter your address.');
     if (!role) return showRrmError('Please select which best describes you.');
     if (role === 'Other') {
       if (!otherDetail) return showRrmError('Please specify how you’re connected to Silo Mills.');
@@ -2211,6 +2215,7 @@
     formData.append('name', name);
     formData.append('email', email);
     formData.append('phone', phone);
+    formData.append('address', address);
     formData.append('role', role);
     formData.append('cf-turnstile-response', token);
     formData.append('user_agent', navigator.userAgent || '');
