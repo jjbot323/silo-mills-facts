@@ -2058,7 +2058,6 @@
 
       <label for="rrm-phone">Phone Number <span style="color:#9F6B3F;">*</span></label>
       <input id="rrm-phone" type="tel" name="phone" maxlength="40" autocomplete="tel">
-      <p style="margin:4px 0 0; font-size:0.8em; color:#A9B4BF;"><span style="color:#9F6B3F;">*</span> optional</p>
 
       <label for="rrm-role">I am a&hellip;</label>
       <select id="rrm-role" name="role" required onchange="rrmToggleOtherDetail()">
@@ -2080,6 +2079,8 @@
       <div class="turnstile-wrap">
         <div class="cf-turnstile" data-sitekey="0x4AAAAAADTMqOetPrOJAVs7" data-callback="rrmTurnstileCallback" data-error-callback="rrmTurnstileError"></div>
       </div>
+
+      <p style="margin:0 0 10px; font-size:0.8em; color:#A9B4BF;"><span style="color:#9F6B3F;">*</span> optional</p>
 
       <button type="submit" id="rrm-submit">Submit Request</button>
 
