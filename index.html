@@ -2056,18 +2056,24 @@
       <label for="rrm-email">Email Address</label>
       <input id="rrm-email" type="email" name="email" required maxlength="200" autocomplete="email">
 
-      <label for="rrm-phone">Phone Number <span style="font-weight:400; color:#6B7B8D;">(optional)</span></label>
+      <label for="rrm-phone">Phone Number <span style="font-weight:400; color:#A9B4BF; font-size:0.85em;">(optional)</span></label>
       <input id="rrm-phone" type="tel" name="phone" maxlength="40" autocomplete="tel">
 
       <label for="rrm-role">I am a&hellip;</label>
-      <select id="rrm-role" name="role" required>
+      <select id="rrm-role" name="role" required onchange="rrmToggleOtherDetail()">
         <option value="" disabled selected>Please select&hellip;</option>
         <option value="Silo Mills Resident">Silo Mills Resident</option>
+        <option value="Prospective Silo Mills Resident">Prospective Silo Mills Resident</option>
         <option value="Pleasant View Elementary School Parent">Pleasant View Elementary School Parent</option>
         <option value="Pleasant View Elementary Staff/Faculty">Pleasant View Elementary Staff/Faculty</option>
         <option value="Neighbor / Community Member">Neighbor / Community Member</option>
         <option value="Other">Other</option>
       </select>
+
+      <div id="rrm-other-wrap" style="display:none;">
+        <label for="rrm-other-detail">Please specify</label>
+        <input id="rrm-other-detail" type="text" name="role_detail" maxlength="120" autocomplete="off">
+      </div>
 
       <!-- Cloudflare Turnstile invisible bot protection -->
       <div class="turnstile-wrap">
@@ -2121,6 +2127,7 @@
       err.textContent = '';
       const form = document.getElementById('rrm-form');
       if (form) form.reset();
+      rrmToggleOtherDetail();
       if (window.turnstile && window.__rrmWidgetId !== undefined) {
         try { window.turnstile.reset(window.__rrmWidgetId); } catch (e) {}
       }
@@ -2134,6 +2141,21 @@
       if (modal && modal.classList.contains('is-open')) closeReportRequestModal();
     }
   });
+
+  function rrmToggleOtherDetail() {
+    const role = document.getElementById('rrm-role').value;
+    const wrap = document.getElementById('rrm-other-wrap');
+    const detail = document.getElementById('rrm-other-detail');
+    if (role === 'Other') {
+      wrap.style.display = '';
+      detail.setAttribute('required', 'required');
+      setTimeout(function() { detail.focus(); }, 50);
+    } else {
+      wrap.style.display = 'none';
+      detail.removeAttribute('required');
+      detail.value = '';
+    }
+  }
 
   function rrmTurnstileCallback(token) { /* token captured by Turnstile widget */ }
   function rrmTurnstileError() {
@@ -2155,11 +2177,16 @@
     const name = document.getElementById('rrm-name').value.trim();
     const email = document.getElementById('rrm-email').value.trim();
     const phone = document.getElementById('rrm-phone').value.trim();
-    const role = document.getElementById('rrm-role').value;
+    let role = document.getElementById('rrm-role').value;
+    const otherDetail = document.getElementById('rrm-other-detail').value.trim();
 
     if (!name) return showRrmError('Please enter your name.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showRrmError('Please enter a valid email address.');
     if (!role) return showRrmError('Please select which best describes you.');
+    if (role === 'Other') {
+      if (!otherDetail) return showRrmError('Please specify how you’re connected to Silo Mills.');
+      role = 'Other: ' + otherDetail;
+    }
 
     // Get Turnstile token
     let token = '';
